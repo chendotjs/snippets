@@ -85,10 +85,10 @@ void MatchingMethod(int, void *) {
   /// Show me what you got
   rectangle(img_display, matchLoc,
             Point(matchLoc.x + templ.cols, matchLoc.y + templ.rows),
-            Scalar::all(0), 2, 8, 0);
+            Scalar::all(255), 2, 8, 0);
   rectangle(result, matchLoc,
             Point(matchLoc.x + templ.cols, matchLoc.y + templ.rows),
-            Scalar::all(0), 2, 8, 0);
+            Scalar::all(255), 2, 8, 0);
 
   imshow(image_window, img_display);
   imshow(result_window, result);
