@@ -11,7 +11,22 @@ using namespace std;
 using namespace cv;
 
 int main(int argc, char **argv) {
+#if 0
+	// only this works
   double x[5][5] = {{1, 2, 3, 4, 5}, {6, 7, 8, 9, 10}};
+#else
+	// this does not work
+	double **x;
+	x = new double* [5];
+	for (int i = 0; i < 5; i++) {
+		x[i] = new double[5];
+	}
+  for (int i = 0; i < 5; i++) {
+    for (int j = 0; j < 5; j++) {
+      x[i][j] = i * 5 + j;
+    }
+  }
+#endif
   cv::Mat A(5, 5, CV_64FC1, x);
 
   printf("Mat channel: %d\n", A.channels());
@@ -21,14 +36,14 @@ int main(int argc, char **argv) {
   for (int j = 0; j < nr; j++) {
     double *data = A.ptr<double>(j);
     for (int i = 0; i < nc; i++) {
-      printf("%lf ", data[i]);
+      printf("%.0lf ", data[i]);
     }
   }
   printf("\n");
 
   for (int i = 0; i < 5; i++) {
     for (int j = 0; j < 5; j++) {
-      printf("%lf ", x[i][j]);
+      printf("%.0lf ", x[i][j]);
     }
   }
   printf("\n");
