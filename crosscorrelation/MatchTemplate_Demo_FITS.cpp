@@ -27,6 +27,7 @@ int max_Trackbar = 5;
 void MatchingMethod(int, void *);
 double **fitsread(const char *file, int *sizeX, int *sizeY);
 float *double2float(double **pd, int x, int y);
+void printMatchResult(Point matchLoc, double minVal, double maxVal);
 
 /** @function main */
 int main(int argc, char **argv) {
@@ -117,6 +118,8 @@ void MatchingMethod(int, void *) {
   } else {
     matchLoc = maxLoc;
   }
+
+  printMatchResult(matchLoc, minVal, maxVal);
 
   /// Show me what you got
   rectangle(img_display, matchLoc,
@@ -216,4 +219,13 @@ float *double2float(double **pd, int x, int y) {
     }
   }
   return pf;
+}
+
+void printMatchResult(Point matchLoc, double minVal, double maxVal) {
+  // convert opencv coordinate system to cfitsio system
+  std::cout << "match location:"
+            << "[" << matchLoc.x + 1 << ","
+            << img.size().height - matchLoc.y - templ.size().height + 1 << "]"
+            << "\t";
+  printf("(%.4lf,%.4lf)\n", minVal, maxVal);
 }
